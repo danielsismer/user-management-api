@@ -1,3 +1,4 @@
+
 # User Management Service
 
 A robust RESTful API built with **Spring Boot**, **JPA/Hibernate**, and **MapStruct**. Implements clean architecture principles with DTO-to-Entity mapping, bidirectional relationship management, and optimized data persistence.
