@@ -11,10 +11,12 @@ import com.daniel.jpa.mapper.UserMapper;
 import com.daniel.jpa.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
+
+// Novas Importações para a paginação
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,12 +52,17 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<UserResponseDTO> findAll() {
+    /**
+     * NOVO MÉTODO PAGINADO:
+     * Substitui a devolução de List por Page.
+     * Recebe Pageable como argumento para gerir a página e tamanho.
+     */
+    public Page<UserResponseDTO> findAll(Pageable pageable) {
 
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toResponse)
-                .toList();
+        // O repositório procura a página correta na base de dados.
+        // O método .map() do objeto Page aplica o userMapper a cada elemento automaticamente.
+        return userRepository.findAll(pageable)
+                .map(userMapper::toResponse);
 
     }
 

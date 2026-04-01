@@ -58,12 +58,46 @@ src/
 | Method | Endpoint | Description |
 |---|---|---|
 | `POST` | `/users` | Create a new user |
+| `GET` | `/users?page=0&size=10&sort=id,asc` | Get users list (Paged & Sorted) 🌟 |
 | `GET` | `/users/{id}` | Get user details |
 | `POST` | `/users/{id}/addresses` | Add an address to an existing user |
 | `PUT` | `/users/{id}` | Update user profile |
 | `DELETE` | `/users/{id}` | Remove a user |
 
 ---
+
+## 📄 Pagination and Sorting
+
+The endpoint `GET /users` supports pagination and sorting out of the box. If you don't provide any parameters, it defaults to page `0`, size `10`, sorted by `id` in ascending order.
+
+### Query Parameters
+
+| Parameter | Description | Default | Example |
+|---|---|---|---|
+| `page` | Page number (zero-based index) | `0` | `page=1` |
+| `size` | Number of items per page | `10` | `size=5` |
+| `sort` | Property to sort by and direction | `id,asc` | `sort=name,desc` |
+
+### Example Response
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Daniel",
+      "email": "daniel@example.com"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 10
+  },
+  "totalElements": 1,
+  "totalPages": 1,
+  "last": true
+}
+```
 
 ## ✅ Input Validation
 
